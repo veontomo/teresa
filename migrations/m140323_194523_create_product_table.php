@@ -11,7 +11,7 @@ class m140323_194523_create_product_table extends \yii\db\Migration
     {
 
     	$this->createTable($this->tableName, [
-    		'id' => 'SMALLINT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
+    		'id' => 'INT(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
     		'name' => 'VARCHAR(255)',
     		'manufacturer' =>  'INT(6) UNSIGNED',
     		'description' =>  'TEXT',
