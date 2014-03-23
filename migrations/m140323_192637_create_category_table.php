@@ -2,32 +2,30 @@
 
 use yii\db\Schema;
 
-class m140323_185215_create_admin_table extends \yii\db\Migration
+class m140323_192637_create_category_table extends \yii\db\Migration
 {
-    private $tableName = 'teresa_admin';
-    private $fkAddedBy = 'adminAddedBy';
-    private $fkUpdatedBy = 'adminUpdatedBy';
+    private $tableName = 'teresa_category';
+    private $fkAddedBy = 'categoryAddedBy';
+    private $fkUpdatedBy = 'categoryUpdatedBy';
+
     public function up()
     {
     	$this->createTable($this->tableName, [
     		'id' => 'SMALLINT(5) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
-    		'name' => 'VARCHAR(50) COLLATE utf8_bin NOT NULL',
-    		'surname' => 'VARCHAR(50) COLLATE utf8_bin DEFAULT NULL',
-    		'avatar' => 'VARCHAR(200) COLLATE utf8_bin DEFAULT NULL',
-    		'loginName' => 'VARCHAR(20) COLLATE utf8_bin NOT NULL',
-    		'pswd' => 'VARCHAR(128) COLLATE utf8_bin NOT NULL',
+    		'name' => 'VARCHAR(255)',
+    		'parent' =>  'SMALLINT(5) UNSIGNED',
+    		'description' =>  'TEXT',
     		'addedBy' => 'SMALLINT(5) UNSIGNED',
     		'creationTime' => 'DATETIME NOT NULL',
     		'updatedBy' => 'SMALLINT(5) UNSIGNED DEFAULT NULL',
-    		'updateTime' => 'DATETIME DEFAULT NULL',
-    		'lastLogin' => 'DATETIME DEFAULT NULL',
+    		'updateTime' => 'DATETIME DEFAULT NULL'
     	]);
     	echo "Table " . $this->tableName . " is created.\n";
     	$this->addForeignKey($this->fkAddedBy, $this->tableName, 'addedBy', 
-    		$this->tableName, 'id', 'restrict', 'cascade');
+    		'teresa_admin', 'id', 'restrict', 'cascade');
     	echo "Foreign key $this->fkAddedBy is added to $this->tableName.\n";
     	$this->addForeignKey($this->fkUpdatedBy, $this->tableName, 'updatedBy', 
-    		$this->tableName, 'id', 'restrict', 'cascade');
+    		'teresa_admin', 'id', 'restrict', 'cascade');
     	echo "Foreign key $this->fkUpdatedBy is added to $this->tableName.\n";
 
     }
@@ -42,5 +40,4 @@ class m140323_185215_create_admin_table extends \yii\db\Migration
     	echo "Table $this->tableName is dropped.\n";
     	return true;
     }
-
 }
