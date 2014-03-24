@@ -1,4 +1,4 @@
 /vendor/*
 /runtime/*
-/composer.lock
-/composer.json
+composer.lock
+composer.json
