@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "teresa_category".
  *
@@ -16,6 +18,8 @@ namespace app\models;
  *
  * @property TeresaAdmin $updatedBy0
  * @property TeresaAdmin $addedBy0
+ * @property TeresaCategoryProduct $teresaCategoryProduct
+ * @property TeresaProduct[] $products
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -47,14 +51,14 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => \Yii::t('app', 'ID'),
-            'name' => \Yii::t('app', 'Name'),
-            'parent' => \Yii::t('app', 'Parent'),
-            'description' => \Yii::t('app', 'Description'),
-            'addedBy' => \Yii::t('app', 'Added By'),
-            'creationTime' => \Yii::t('app', 'Creation Time'),
-            'updatedBy' => \Yii::t('app', 'Updated By'),
-            'updateTime' => \Yii::t('app', 'Update Time'),
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'parent' => Yii::t('app', 'Parent'),
+            'description' => Yii::t('app', 'Description'),
+            'addedBy' => Yii::t('app', 'Added By'),
+            'creationTime' => Yii::t('app', 'Creation Time'),
+            'updatedBy' => Yii::t('app', 'Updated By'),
+            'updateTime' => Yii::t('app', 'Update Time'),
         ];
     }
 
@@ -72,5 +76,21 @@ class Category extends \yii\db\ActiveRecord
     public function getAddedBy0()
     {
         return $this->hasOne(TeresaAdmin::className(), ['id' => 'addedBy']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeresaCategoryProduct()
+    {
+        return $this->hasOne(TeresaCategoryProduct::className(), ['category_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProducts()
+    {
+        return $this->hasMany(TeresaProduct::className(), ['id' => 'product_id'])->viaTable('teresa_category_product', ['category_id' => 'id']);
     }
 }
