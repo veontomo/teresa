@@ -47,14 +47,14 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'parent' => Yii::t('app', 'Parent'),
-            'description' => Yii::t('app', 'Description'),
-            'addedBy' => Yii::t('app', 'Added By'),
-            'creationTime' => Yii::t('app', 'Creation Time'),
-            'updatedBy' => Yii::t('app', 'Updated By'),
-            'updateTime' => Yii::t('app', 'Update Time'),
+            'id' => \Yii::t('app', 'ID'),
+            'name' => \Yii::t('app', 'Name'),
+            'parent' => \Yii::t('app', 'Parent'),
+            'description' => \Yii::t('app', 'Description'),
+            'addedBy' => \Yii::t('app', 'Added By'),
+            'creationTime' => \Yii::t('app', 'Creation Time'),
+            'updatedBy' => \Yii::t('app', 'Updated By'),
+            'updateTime' => \Yii::t('app', 'Update Time'),
         ];
     }
 
