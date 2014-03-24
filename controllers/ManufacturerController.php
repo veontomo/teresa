@@ -61,6 +61,8 @@ class ManufacturerController extends Controller
     public function actionCreate()
     {
         $model = new Manufacturer;
+        $model->addedBy = Yii::$app->user->identity->id;
+        $model->creationTime = date('Y-m-d H:i:s'); 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

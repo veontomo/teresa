@@ -61,6 +61,8 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product;
+        $model->addedBy = Yii::$app->user->identity->id;
+        $model->creationTime = date('Y-m-d H:i:s'); 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
