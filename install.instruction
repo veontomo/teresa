@@ -1,0 +1,45 @@
+Installation instructions from https://github.com/yiisoft/yii2/tree/master/apps/basic
+
+1. download composer.phar file 
+
+2. php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic teresa
+
+   The above command will create a folder "teresa" in the current folder (where composer.phar is located).
+
+3. Edit the file config/db.php with real data.
+
+4. Enter the folder "teresa".
+
+5. Run 
+
+	php ../composer.phar require --dev "codeception/codeception: 1.8.*@dev" "codeception/specify: *" "codeception/verify: *"
+
+	This command is taken from the file "tests/README.md"
+
+6. Start the server: 
+   
+   php -S 127.0.0.1:8080
+
+
+7. Follow the instructions from "tests/README.md":
+
+	a. In the file `_bootstrap.php`, modify the definition of the constant `TEST_ENTRY_URL` so
+	   that it points to the correct entry script URL.
+	b. Go to the application base directory and build the test suites:
+
+	   ```
+	   vendor/bin/codecept build
+	   ```
+
+	c. Now you can run the tests with the following commands:
+
+		```
+		# run all available tests
+		vendor/bin/codecept run
+		# run acceptance tests
+		vendor/bin/codecept run acceptance
+		# run functional tests
+		vendor/bin/codecept run functional
+		# run unit tests
+		vendor/bin/codecept run unit
+		```
