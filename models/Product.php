@@ -54,18 +54,18 @@ class Product extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'manufacturer' => Yii::t('app', 'Manufacturer'),
-            'description' => Yii::t('app', 'Description'),
-            'mass' => Yii::t('app', 'Mass'),
-            'lenght' => Yii::t('app', 'Lenght'),
-            'width' => Yii::t('app', 'Width'),
-            'height' => Yii::t('app', 'Height'),
-            'addedBy' => Yii::t('app', 'Added By'),
-            'creationTime' => Yii::t('app', 'Creation Time'),
-            'updatedBy' => Yii::t('app', 'Updated By'),
-            'updateTime' => Yii::t('app', 'Update Time'),
+            'id' => \Yii::t('app', 'ID'),
+            'name' => \Yii::t('app', 'Name'),
+            'manufacturer' => \Yii::t('app', 'Manufacturer'),
+            'description' => \Yii::t('app', 'Description'),
+            'mass' => \Yii::t('app', 'Mass'),
+            'lenght' => \Yii::t('app', 'Lenght'),
+            'width' => \Yii::t('app', 'Width'),
+            'height' => \Yii::t('app', 'Height'),
+            'addedBy' => \Yii::t('app', 'Added By'),
+            'creationTime' => \Yii::t('app', 'Creation Time'),
+            'updatedBy' => \Yii::t('app', 'Updated By'),
+            'updateTime' => \Yii::t('app', 'Update Time'),
         ];
     }
 
