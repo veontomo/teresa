@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "teresa_manufacturer".
  *
@@ -50,15 +52,15 @@ class Manufacturer extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => \Yii::t('app', 'ID'),
-            'fullName' => \Yii::t('app', 'Full Name'),
-            'shortName' => \Yii::t('app', 'Short Name'),
-            'url' => \Yii::t('app', 'Url'),
-            'description' => \Yii::t('app', 'Description'),
-            'addedBy' => \Yii::t('app', 'Added By'),
-            'creationTime' => \Yii::t('app', 'Creation Time'),
-            'updatedBy' => \Yii::t('app', 'Updated By'),
-            'updateTime' => \Yii::t('app', 'Update Time'),
+            'id' => Yii::t('app', 'ID'),
+            'fullName' => Yii::t('app', 'Full Name'),
+            'shortName' => Yii::t('app', 'Short Name'),
+            'url' => Yii::t('app', 'Url'),
+            'description' => Yii::t('app', 'Description'),
+            'addedBy' => Yii::t('app', 'Added By'),
+            'creationTime' => Yii::t('app', 'Creation Time'),
+            'updatedBy' => Yii::t('app', 'Updated By'),
+            'updateTime' => Yii::t('app', 'Update Time'),
         ];
     }
 
