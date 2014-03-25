@@ -13,7 +13,8 @@ class m140325_124237_add_root_to_admin_table extends \yii\db\Migration
     		'name' => 'Mario',
     		'loginName' => $this->userName,
     		'creationTime' => date('Y-m-d H:i:s') ,
-    		'role' => $admin::ROLE_ROOT]
+    		'role' => $admin::ROLE_ROOT,
+            'pswd' => 'admin']
     	);
     	echo "User $this->userName is inserted into table $this->tableName\n";
     }
