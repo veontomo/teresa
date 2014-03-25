@@ -14,7 +14,7 @@ class m140323_185215_create_admin_table extends \yii\db\Migration
     		'name' => 'VARCHAR(50) COLLATE utf8_bin NOT NULL',
     		'surname' => 'VARCHAR(50) COLLATE utf8_bin DEFAULT NULL',
     		'avatar' => 'VARCHAR(200) COLLATE utf8_bin DEFAULT NULL',
-    		'loginName' => 'VARCHAR(20) COLLATE utf8_bin NOT NULL',
+    		'loginName' => 'VARCHAR(20) COLLATE utf8_bin NOT NULL UNIQUE',
     		'pswd' => 'VARCHAR(128) COLLATE utf8_bin NOT NULL',
     		'addedBy' => 'SMALLINT(5) UNSIGNED',
     		'creationTime' => 'DATETIME NOT NULL',
@@ -23,10 +23,10 @@ class m140323_185215_create_admin_table extends \yii\db\Migration
     		'lastLogin' => 'DATETIME DEFAULT NULL',
     	]);
     	echo "Table " . $this->tableName . " is created.\n";
-    	$this->addForeignKey($this->fkAddedBy, $this->tableName, 'addedBy', 
+    	$this->addForeignKey($this->fkAddedBy, $this->tableName, 'addedBy',
     		$this->tableName, 'id', 'restrict', 'cascade');
     	echo "Foreign key $this->fkAddedBy is added to $this->tableName.\n";
-    	$this->addForeignKey($this->fkUpdatedBy, $this->tableName, 'updatedBy', 
+    	$this->addForeignKey($this->fkUpdatedBy, $this->tableName, 'updatedBy',
     		$this->tableName, 'id', 'restrict', 'cascade');
     	echo "Foreign key $this->fkUpdatedBy is added to $this->tableName.\n";
 
