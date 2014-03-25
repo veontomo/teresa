@@ -5,18 +5,21 @@ namespace app\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Manufacturer;
+use app\models\Product;
 
 /**
- * ManufacturerSearch represents the model behind the search form about `app\models\Manufacturer`.
+ * ProductSearch represents the model behind the search form about `app\models\Product`.
  */
-class ManufacturerSearch extends Model
+class ProductSearch extends Model
 {
     public $id;
-    public $fullName;
-    public $shortName;
-    public $url;
+    public $name;
+    public $manufacturer;
     public $description;
+    public $mass;
+    public $lenght;
+    public $width;
+    public $height;
     public $addedBy;
     public $creationTime;
     public $updatedBy;
@@ -25,8 +28,9 @@ class ManufacturerSearch extends Model
     public function rules()
     {
         return [
-            [['id', 'addedBy', 'updatedBy'], 'integer'],
-            [['fullName', 'shortName', 'url', 'description', 'creationTime', 'updateTime'], 'safe'],
+            [['id', 'manufacturer', 'lenght', 'width', 'height', 'addedBy', 'updatedBy'], 'integer'],
+            [['name', 'description', 'creationTime', 'updateTime'], 'safe'],
+            [['mass'], 'number'],
         ];
     }
 
@@ -37,10 +41,13 @@ class ManufacturerSearch extends Model
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'fullName' => Yii::t('app', 'Full Name'),
-            'shortName' => Yii::t('app', 'Short Name'),
-            'url' => Yii::t('app', 'Url'),
+            'name' => Yii::t('app', 'Name'),
+            'manufacturer' => Yii::t('app', 'Manufacturer'),
             'description' => Yii::t('app', 'Description'),
+            'mass' => Yii::t('app', 'Mass'),
+            'lenght' => Yii::t('app', 'Lenght'),
+            'width' => Yii::t('app', 'Width'),
+            'height' => Yii::t('app', 'Height'),
             'addedBy' => Yii::t('app', 'Added By'),
             'creationTime' => Yii::t('app', 'Creation Time'),
             'updatedBy' => Yii::t('app', 'Updated By'),
@@ -50,7 +57,7 @@ class ManufacturerSearch extends Model
 
     public function search($params)
     {
-        $query = Manufacturer::find();
+        $query = Product::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -60,10 +67,13 @@ class ManufacturerSearch extends Model
         }
 
         $this->addCondition($query, 'id');
-        $this->addCondition($query, 'fullName', true);
-        $this->addCondition($query, 'shortName', true);
-        $this->addCondition($query, 'url', true);
+        $this->addCondition($query, 'name', true);
+        $this->addCondition($query, 'manufacturer');
         $this->addCondition($query, 'description', true);
+        $this->addCondition($query, 'mass');
+        $this->addCondition($query, 'lenght');
+        $this->addCondition($query, 'width');
+        $this->addCondition($query, 'height');
         $this->addCondition($query, 'addedBy');
         $this->addCondition($query, 'creationTime');
         $this->addCondition($query, 'updatedBy');

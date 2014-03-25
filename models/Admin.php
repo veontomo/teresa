@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "teresa_admin".
  *
@@ -27,6 +29,9 @@ namespace app\models;
  */
 class Admin extends \yii\db\ActiveRecord
 {
+    const ROLE_ROOT = 0;  // everything is allowed
+    const ROLE_ADMIN = 1; //  create, read, update, delete of items are allowed (user account creation is not allowed)
+
     /**
      * @inheritdoc
      */
@@ -57,17 +62,17 @@ class Admin extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => \Yii::t('app', 'ID'),
-            'name' => \Yii::t('app', 'Name'),
-            'surname' => \Yii::t('app', 'Surname'),
-            'avatar' => \Yii::t('app', 'Avatar'),
-            'loginName' => \Yii::t('app', 'Login Name'),
-            'pswd' => \Yii::t('app', 'Pswd'),
-            'addedBy' => \Yii::t('app', 'Added By'),
-            'creationTime' => \Yii::t('app', 'Creation Time'),
-            'updatedBy' => \Yii::t('app', 'Updated By'),
-            'updateTime' => \Yii::t('app', 'Update Time'),
-            'lastLogin' => \Yii::t('app', 'Last Login'),
+            'id'   => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'surname' => Yii::t('app', 'Surname'),
+            'avatar'  => Yii::t('app', 'Avatar'),
+            'loginName' => Yii::t('app', 'Login Name'),
+            'pswd' => Yii::t('app', 'Pswd'),
+            'addedBy' => Yii::t('app', 'Added By'),
+            'creationTime' => Yii::t('app', 'Creation Time'),
+            'updatedBy'  => Yii::t('app', 'Updated By'),
+            'updateTime' => Yii::t('app', 'Update Time'),
+            'lastLogin' => Yii::t('app', 'Last Login'),
         ];
     }
 

@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Manufacturer;
-use app\models\search\ManufacturerSearch;
+use app\models\Product;
+use app\models\search\ProductSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
 
 /**
- * ManufacturerController implements the CRUD actions for Manufacturer model.
+ * ProductController implements the CRUD actions for Product model.
  */
-class ManufacturerController extends Controller
+class ProductController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Lists all Manufacturer models.
+     * Lists all Product models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ManufacturerSearch;
+        $searchModel = new ProductSearch;
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Displays a single Manufacturer model.
+     * Displays a single Product model.
      * @param string $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Creates a new Manufacturer model.
+     * Creates a new Product model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Manufacturer;
+        $model = new Product;
         $model->addedBy = Yii::$app->user->identity->id;
         $model->creationTime = date('Y-m-d H:i:s'); 
 
@@ -74,7 +74,7 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Updates an existing Manufacturer model.
+     * Updates an existing Product model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -93,7 +93,7 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Deletes an existing Manufacturer model.
+     * Deletes an existing Product model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -106,15 +106,15 @@ class ManufacturerController extends Controller
     }
 
     /**
-     * Finds the Manufacturer model based on its primary key value.
+     * Finds the Product model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return Manufacturer the loaded model
+     * @return Product the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if ($id !== null && ($model = Manufacturer::find($id)) !== null) {
+        if ($id !== null && ($model = Product::find($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

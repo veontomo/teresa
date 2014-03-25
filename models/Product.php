@@ -5,29 +5,34 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "teresa_manufacturer".
+ * This is the model class for table "teresa_product".
  *
  * @property string $id
- * @property string $fullName
- * @property string $shortName
- * @property string $url
+ * @property string $name
+ * @property string $manufacturer
  * @property string $description
+ * @property string $mass
+ * @property integer $lenght
+ * @property integer $width
+ * @property integer $height
  * @property integer $addedBy
  * @property string $creationTime
  * @property integer $updatedBy
  * @property string $updateTime
  *
+ * @property TeresaCategoryProduct $teresaCategoryProduct
+ * @property TeresaCategory[] $categories
  * @property TeresaAdmin $updatedBy0
  * @property TeresaAdmin $addedBy0
  */
-class Manufacturer extends \yii\db\ActiveRecord
+class Product extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'teresa_manufacturer';
+        return 'teresa_product';
     }
 
     /**
@@ -36,13 +41,12 @@ class Manufacturer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['manufacturer', 'lenght', 'width', 'height', 'addedBy', 'updatedBy'], 'integer'],
             [['description'], 'string'],
-            [['addedBy', 'updatedBy'], 'integer'],
+            [['mass'], 'number'],
             [['creationTime'], 'required'],
             [['creationTime', 'updateTime'], 'safe'],
-            [['fullName'], 'string', 'max' => 150],
-            [['shortName'], 'string', 'max' => 30],
-            [['url'], 'string', 'max' => 255]
+            [['name'], 'string', 'max' => 255]
         ];
     }
 
@@ -53,15 +57,34 @@ class Manufacturer extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'fullName' => Yii::t('app', 'Full Name'),
-            'shortName' => Yii::t('app', 'Short Name'),
-            'url' => Yii::t('app', 'Url'),
+            'name' => Yii::t('app', 'Name'),
+            'manufacturer' => Yii::t('app', 'Manufacturer'),
             'description' => Yii::t('app', 'Description'),
+            'mass' => Yii::t('app', 'Mass'),
+            'lenght' => Yii::t('app', 'Lenght'),
+            'width' => Yii::t('app', 'Width'),
+            'height' => Yii::t('app', 'Height'),
             'addedBy' => Yii::t('app', 'Added By'),
             'creationTime' => Yii::t('app', 'Creation Time'),
             'updatedBy' => Yii::t('app', 'Updated By'),
             'updateTime' => Yii::t('app', 'Update Time'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeresaCategoryProduct()
+    {
+        return $this->hasOne(TeresaCategoryProduct::className(), ['product_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategories()
+    {
+        return $this->hasMany(TeresaCategory::className(), ['id' => 'category_id'])->viaTable('teresa_category_product', ['product_id' => 'id']);
     }
 
     /**

@@ -2,20 +2,18 @@
 
 namespace app\models\search;
 
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Manufacturer;
+use app\models\Category;
 
 /**
- * ManufacturerSearch represents the model behind the search form about `app\models\Manufacturer`.
+ * CategorySearch represents the model behind the search form about `app\models\Category`.
  */
-class ManufacturerSearch extends Model
+class CategorySearch extends Model
 {
     public $id;
-    public $fullName;
-    public $shortName;
-    public $url;
+    public $name;
+    public $parent;
     public $description;
     public $addedBy;
     public $creationTime;
@@ -25,8 +23,8 @@ class ManufacturerSearch extends Model
     public function rules()
     {
         return [
-            [['id', 'addedBy', 'updatedBy'], 'integer'],
-            [['fullName', 'shortName', 'url', 'description', 'creationTime', 'updateTime'], 'safe'],
+            [['id', 'parent', 'addedBy', 'updatedBy'], 'integer'],
+            [['name', 'description', 'creationTime', 'updateTime'], 'safe'],
         ];
     }
 
@@ -37,9 +35,8 @@ class ManufacturerSearch extends Model
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'fullName' => Yii::t('app', 'Full Name'),
-            'shortName' => Yii::t('app', 'Short Name'),
-            'url' => Yii::t('app', 'Url'),
+            'name' => Yii::t('app', 'Name'),
+            'parent' => Yii::t('app', 'Parent'),
             'description' => Yii::t('app', 'Description'),
             'addedBy' => Yii::t('app', 'Added By'),
             'creationTime' => Yii::t('app', 'Creation Time'),
@@ -50,7 +47,7 @@ class ManufacturerSearch extends Model
 
     public function search($params)
     {
-        $query = Manufacturer::find();
+        $query = Category::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -60,9 +57,8 @@ class ManufacturerSearch extends Model
         }
 
         $this->addCondition($query, 'id');
-        $this->addCondition($query, 'fullName', true);
-        $this->addCondition($query, 'shortName', true);
-        $this->addCondition($query, 'url', true);
+        $this->addCondition($query, 'name', true);
+        $this->addCondition($query, 'parent');
         $this->addCondition($query, 'description', true);
         $this->addCondition($query, 'addedBy');
         $this->addCondition($query, 'creationTime');
