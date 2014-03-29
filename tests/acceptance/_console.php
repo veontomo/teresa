@@ -6,7 +6,10 @@ return yii\helpers\ArrayHelper::merge(
     [
         'components' => [
             'db' => [
-                'dsn' => 'mysql:host=localhost;dbname=teresadesign',
+                'dsn' => 'mysql:host=localhost;dbname=teresadesign_test',
+                'username' => 'daemon',
+                'password' => 'HsqyJSAbZC3q3KJa',
+
             ],
         ],
     ]

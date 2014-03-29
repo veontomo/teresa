@@ -10,9 +10,13 @@ settings:
     log: true
     colors: true
 modules:
+    enabled: 
+        - Db
     config:
         Db:
-            dsn: ''
-            user: ''
-            password: ''
+            dsn: 'mysql:host=localhost;dbname=teresadesign_test' 
+            user: 'daemon'
+            password: 'HsqyJSAbZC3q3KJa'
             dump: tests/_data/dump.sql
+            populate: true
+            cleanup: true

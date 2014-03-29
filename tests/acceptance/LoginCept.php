@@ -4,7 +4,7 @@ use tests\_pages\LoginPage;
 
 $I = new WebGuy($scenario);
 $I->wantTo('ensure that login works');
-
+print_r($I->grabFromDatabase('teresa_admin', 'name', ['loginName' => 'admin'])[0]);
 $loginPage = LoginPage::openBy($I);
 
 $I->see('Login', 'h1');
