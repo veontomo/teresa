@@ -15,7 +15,10 @@ class m140323_185215_create_admin_table extends \yii\db\Migration
     		'surname' => 'VARCHAR(50) COLLATE utf8_bin DEFAULT NULL',
     		'avatar' => 'VARCHAR(200) COLLATE utf8_bin DEFAULT NULL',
     		'loginName' => 'VARCHAR(20) COLLATE utf8_bin NOT NULL UNIQUE',
-    		'pswd' => 'VARCHAR(128) COLLATE utf8_bin NOT NULL',
+            'salt' => 'VARCHAR(256) COLLATE utf8_bin NOT NULL',
+            'iterations' => 'INT(11) UNSIGNED', // number of iterations in hash_pbkdf2 algorithm
+    		'hash' => 'VARCHAR(256) COLLATE utf8_bin NOT NULL', // password hash
+            'role' => 'TINYINT UNSIGNED',
     		'addedBy' => 'SMALLINT(5) UNSIGNED',
     		'creationTime' => 'DATETIME NOT NULL',
     		'updatedBy' => 'SMALLINT(5) UNSIGNED DEFAULT NULL',

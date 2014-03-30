@@ -4,7 +4,8 @@ use tests\_pages\LoginPage;
 
 $I = new WebGuy($scenario);
 $I->wantTo('ensure that login works');
-print_r($I->grabFromDatabase('teresa_admin', 'name', ['loginName' => 'admin'])[0]);
+$I->seeInDatabase('teresa_admin', ['loginName' => 'admin']);
+// $name = $I->grabFromDatabase('teresa_admin', 'name', ['loginName' => 'admin']);
 $loginPage = LoginPage::openBy($I);
 
 $I->see('Login', 'h1');
@@ -13,7 +14,6 @@ $I->amGoingTo('try to login with empty credentials');
 $loginPage->login('', '');
 $I->expectTo('see validations errors');
 $I->see('Username cannot be blank.');
-$I->see('Password cannot be blank.');
 
 $I->amGoingTo('try to login with wrong credentials');
 $loginPage->login('admin', 'wrong');
