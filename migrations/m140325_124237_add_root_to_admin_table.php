@@ -9,14 +9,13 @@ class m140325_124237_add_root_to_admin_table extends \yii\db\Migration
     private $userName = 'Mario';
     public function up()
     {
-    	$salt = md5($this->userLoginName . date('d:s'));
-        $hash = hash_hmac('sha256', 'admin', $salt);
+        $hash = password_hash('admin_pass', PASSWORD_DEFAULT);
+        $time = date('Y-m-d H:i:s');
         $admin = new app\models\Admin();
     	$this->insert($this->tableName, [
     		'name' => $this->userName,
     		'loginName' => $this->userLoginName,
-    		'creationTime' => date('Y-m-d H:i:s'),
-            'salt' => $salt,
+    		'creationTime' => $time,
     		'role' => $admin::ROLE_ROOT,
             'hash' => $hash]
     	);
@@ -25,7 +24,7 @@ class m140325_124237_add_root_to_admin_table extends \yii\db\Migration
 
     public function down()
     {
-		$this->delete($this->tableName, 'loginName = :loginName', [':loginName' => $this->userName]);
+		$this->delete($this->tableName, 'loginName = :loginName', [':loginName' => $this->userLoginName]);
 		echo "User $this->userName is deleted from table $this->tableName\n";
     }
 }
