@@ -12,7 +12,8 @@ use Yii;
  * @property string $surname
  * @property string $avatar
  * @property string $loginName
- * @property string $pswd
+ * @property string $hash
+ * @property integer $role
  * @property integer $addedBy
  * @property string $creationTime
  * @property integer $updatedBy
@@ -29,9 +30,6 @@ use Yii;
  */
 class Admin extends \yii\db\ActiveRecord
 {
-    const ROLE_ROOT = 0;  // everything is allowed
-    const ROLE_ADMIN = 1; //  create, read, update, delete of items are allowed (user account creation is not allowed)
-
     /**
      * @inheritdoc
      */
@@ -46,13 +44,14 @@ class Admin extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'loginName', 'pswd', 'creationTime'], 'required'],
-            [['addedBy', 'updatedBy'], 'integer'],
+            [['name', 'loginName', 'hash', 'creationTime'], 'required'],
+            [['role', 'addedBy', 'updatedBy'], 'integer'],
             [['creationTime', 'updateTime', 'lastLogin'], 'safe'],
             [['name', 'surname'], 'string', 'max' => 50],
             [['avatar'], 'string', 'max' => 200],
             [['loginName'], 'string', 'max' => 20],
-            [['pswd'], 'string', 'max' => 128]
+            [['hash'], 'string', 'max' => 256],
+            [['loginName'], 'unique']
         ];
     }
 
@@ -62,15 +61,16 @@ class Admin extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id'   => Yii::t('app', 'ID'),
+            'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'surname' => Yii::t('app', 'Surname'),
-            'avatar'  => Yii::t('app', 'Avatar'),
+            'avatar' => Yii::t('app', 'Avatar'),
             'loginName' => Yii::t('app', 'Login Name'),
-            'pswd' => Yii::t('app', 'Pswd'),
+            'hash' => Yii::t('app', 'Hash'),
+            'role' => Yii::t('app', 'Role'),
             'addedBy' => Yii::t('app', 'Added By'),
             'creationTime' => Yii::t('app', 'Creation Time'),
-            'updatedBy'  => Yii::t('app', 'Updated By'),
+            'updatedBy' => Yii::t('app', 'Updated By'),
             'updateTime' => Yii::t('app', 'Update Time'),
             'lastLogin' => Yii::t('app', 'Last Login'),
         ];
