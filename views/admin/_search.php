@@ -27,7 +27,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'loginName') ?>
 
-    <?php // echo $form->field($model, 'pswd') ?>
+    <?php // echo $form->field($model, 'hash') ?>
+
+    <?php // echo $form->field($model, 'role') ?>
 
     <?php // echo $form->field($model, 'addedBy') ?>
 

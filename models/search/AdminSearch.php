@@ -2,6 +2,7 @@
 
 namespace app\models\search;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Admin;
@@ -16,7 +17,8 @@ class AdminSearch extends Model
     public $surname;
     public $avatar;
     public $loginName;
-    public $pswd;
+    public $hash;
+    public $role;
     public $addedBy;
     public $creationTime;
     public $updatedBy;
@@ -26,8 +28,8 @@ class AdminSearch extends Model
     public function rules()
     {
         return [
-            [['id', 'addedBy', 'updatedBy'], 'integer'],
-            [['name', 'surname', 'avatar', 'loginName', 'pswd', 'creationTime', 'updateTime', 'lastLogin'], 'safe'],
+            [['id', 'role', 'addedBy', 'updatedBy'], 'integer'],
+            [['name', 'surname', 'avatar', 'loginName', 'hash', 'creationTime', 'updateTime', 'lastLogin'], 'safe'],
         ];
     }
 
@@ -42,7 +44,8 @@ class AdminSearch extends Model
             'surname' => Yii::t('app', 'Surname'),
             'avatar' => Yii::t('app', 'Avatar'),
             'loginName' => Yii::t('app', 'Login Name'),
-            'pswd' => Yii::t('app', 'Pswd'),
+            'hash' => Yii::t('app', 'Hash'),
+            'role' => Yii::t('app', 'Role'),
             'addedBy' => Yii::t('app', 'Added By'),
             'creationTime' => Yii::t('app', 'Creation Time'),
             'updatedBy' => Yii::t('app', 'Updated By'),
@@ -62,36 +65,18 @@ class AdminSearch extends Model
             return $dataProvider;
         }
 
-        $this->addCondition($query, 'id');
-        $this->addCondition($query, 'name', true);
-        $this->addCondition($query, 'surname', true);
-        $this->addCondition($query, 'avatar', true);
-        $this->addCondition($query, 'loginName', true);
-        $this->addCondition($query, 'pswd', true);
-        $this->addCondition($query, 'addedBy');
-        $this->addCondition($query, 'creationTime');
-        $this->addCondition($query, 'updatedBy');
-        $this->addCondition($query, 'updateTime');
-        $this->addCondition($query, 'lastLogin');
+        $query->andFilterWhere(['id' => $this->id]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'surname', $this->surname]);
+        $query->andFilterWhere(['like', 'avatar', $this->avatar]);
+        $query->andFilterWhere(['like', 'loginName', $this->loginName]);
+        $query->andFilterWhere(['like', 'hash', $this->hash]);
+        $query->andFilterWhere(['role' => $this->role]);
+        $query->andFilterWhere(['addedBy' => $this->addedBy]);
+        $query->andFilterWhere(['creationTime' => $this->creationTime]);
+        $query->andFilterWhere(['updatedBy' => $this->updatedBy]);
+        $query->andFilterWhere(['updateTime' => $this->updateTime]);
+        $query->andFilterWhere(['lastLogin' => $this->lastLogin]);
         return $dataProvider;
-    }
-
-    protected function addCondition($query, $attribute, $partialMatch = false)
-    {
-        if (($pos = strrpos($attribute, '.')) !== false) {
-            $modelAttribute = substr($attribute, $pos + 1);
-        } else {
-            $modelAttribute = $attribute;
-        }
-
-        $value = $this->$modelAttribute;
-        if (trim($value) === '') {
-            return;
-        }
-        if ($partialMatch) {
-            $query->andWhere(['like', $attribute, $value]);
-        } else {
-            $query->andWhere([$attribute => $value]);
-        }
     }
 }

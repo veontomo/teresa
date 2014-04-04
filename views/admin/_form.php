@@ -18,9 +18,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'loginName')->textInput(['maxlength' => 20]) ?>
 
-    <?= $form->field($model, 'pswd')->textInput(['maxlength' => 128]) ?>
+    <?= $form->field($model, 'hash')->textInput(['maxlength' => 256]) ?>
 
     <?= $form->field($model, 'creationTime')->textInput() ?>
+
+    <?= $form->field($model, 'role')->textInput() ?>
 
     <?= $form->field($model, 'addedBy')->textInput() ?>
 
