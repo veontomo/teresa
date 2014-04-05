@@ -28,8 +28,12 @@ use Yii;
  * @property TeresaManufacturer[] $teresaManufacturers
  * @property TeresaProduct[] $teresaProducts
  */
-class Admin extends \yii\db\ActiveRecord
+class Admin extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
+
+    private $_id = false;
+    private $_authKey = false;
+
     /**
      * @inheritdoc
      */
@@ -130,5 +134,65 @@ class Admin extends \yii\db\ActiveRecord
     public function getTeresaProducts()
     {
         return $this->hasMany(TeresaProduct::className(), ['addedBy' => 'id']);
+    }
+
+    /**
+     * Finds admin user by login name
+     *
+     * @param  string      $LoginName
+     * @return Admin|null
+     */
+    public static function findByLoginName($loginName)
+    {
+        return Admin::find()->where(['loginName' => $loginName]);
+    }
+
+    /**
+    * Checks the the password validy and sets id.
+    * @param     string    $pswd
+    * @return    boolean
+    *
+    */
+    public function validatePassword($pswd){
+        $isCorrect = password_verify($pswd, $this->hash);
+        if ($isCorrect){
+            $this->_id = $this->id;
+            $auth = $this->hash;//str_split(password_hash($this->id, PASSWORD_DEFAULT));
+            // shuffle($auth);
+            $this->_authKey = $auth;
+            // echo implode(' ', [$this->id, $this->_authKey]);
+            // die();
+        }
+        return $isCorrect;
+    }
+
+    /**
+    * Returns an Admin with the requested id or Null if no admin with such id exists.
+    * @param    integer   id
+    * @return   Admin|Null
+    */
+    public static function findIdentity($id){
+        return Admin::find($id);
+    }
+
+    public function getId(){
+        // echo __FUNCTION__."<br />". $this->_id;
+
+        return $this->_id;
+    }
+
+    public function getAuthKey(){
+        return $this->_authKey;
+    }
+
+    public function validateAuthKey($auth){
+        return $this->_authKey == $auth; 
+    }
+
+    public static function findIdentityByAccessToken($token){
+        $user = Admin::find()->where(['hash' => $token])->one();
+        // print_r($user);
+        // die();
+        return $user;
     }
 }
