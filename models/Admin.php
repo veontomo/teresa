@@ -31,8 +31,11 @@ use Yii;
 class Admin extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
 
+    const ROLE_ROOT = 1;
     private $_id = false;
     private $_authKey = false;
+
+
 
     /**
      * @inheritdoc
