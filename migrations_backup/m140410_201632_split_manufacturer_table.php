@@ -6,9 +6,11 @@ class m140410_201632_split_manufacturer_table extends \yii\db\Migration
 {
     private $tableName = 'teresa_manufacturer';
  	private $tableNameLD = 'teresa_manufacturer_LD'; // language-dependent
+ 	private $tableNameAttrs = 'teresa_manufacturer_LDA'; // language-dependent attributes
  	private $fkAddedBy = 'manufacturerLDAddedBy';
  	private $fkUpdatedBy = 'manufacturerLDUpdatedBy';
  	private $fkLang = 'manufacturerLDlang';
+ 	private $fkAttr = 'manufacturerLDAttrs';
 
     
     public function up()
@@ -32,10 +34,21 @@ class m140410_201632_split_manufacturer_table extends \yii\db\Migration
     	// 	'updateTime' => 'DATETIME DEFAULT NULL',
     	// ]);
 
+    	$this->createTable($this->tableNameAttrs, [
+    		'colName' => 'VARCHAR(20) NOT NULL PRIMARY KEY'
+    	]);
+    	echo "Table $this->tableNameAttrs is created.\n";
+
+    	$this->insert($this->tableNameAttrs, ['colName' => 'fullName']);
+    	echo "Row with value fullName is inserted in $this->tableName.\n";
+    	$this->insert($this->tableNameAttrs, ['colName' => 'shortName']);
+    	echo "Row with value shortName is inserted in $this->tableName.\n";
+    	$this->insert($this->tableNameAttrs, ['colName' => 'description']);
+    	echo "Row with value description is inserted in $this->tableName.\n";
 
     	$this->createTable($this->tableNameLD, [
     		'id' => 'INT(6) UNSIGNED NOT NULL',
-    		'attr' => 'VARCHAR(30)', // name of the attribute (e.g. "fullName", "description" )
+    		'attr' => 'VARCHAR(20)', // name of the attribute (e.g. "fullName", "description")
     		'lang' => 'INT(3) UNSIGNED NOT NULL',
     		'value' => 'TEXT',
     		'addedBy' => 'SMALLINT(5) unsigned',
@@ -53,10 +66,16 @@ class m140410_201632_split_manufacturer_table extends \yii\db\Migration
     	$this->addForeignKey($this->fkLang, $this->tableNameLD, 'lang', 
     		'teresa_lang', 'id', 'restrict', 'cascade');
     	echo "Foreign key $this->fkLang is added to $this->tableNameLD.\n";
+
+    	$this->addForeignKey($this->fkAttr, $this->tableNameLD, 'attr', 
+    		$this->tableNameAttrs, 'colName', 'restrict', 'cascade');
+    	echo "Foreign key $this->fkAttr is added to $this->tableNameLD.\n";
     }
 
     public function down()
     {
+    	$this->dropForeignKey($this->fkAttr, $this->tableNameLD);
+    	echo "Foreign key $this->fkAttr is dropped from $this->tableNameLD.\n";
     	$this->dropForeignKey($this->fkLang, $this->tableNameLD);
     	echo "Foreign key $this->fkLang is dropped from $this->tableNameLD.\n";
     	$this->dropForeignKey($this->fkUpdatedBy, $this->tableNameLD);
@@ -66,6 +85,10 @@ class m140410_201632_split_manufacturer_table extends \yii\db\Migration
 
     	$this->dropTable($this->tableNameLD);
     	echo "Table $this->tableNameLD is dropped.\n";
+
+
+    	$this->dropTable($this->tableNameAttrs);
+    	echo "Table $this->tableNameAttrs is dropped.\n";
 
     	$this->addColumn($this->tableName, 'description', 'TEXT');
     	echo "Column description is added $this->tableName.\n";
