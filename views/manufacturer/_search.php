@@ -19,19 +19,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'fullName') ?>
-
-    <?= $form->field($model, 'shortName') ?>
-
     <?= $form->field($model, 'url') ?>
 
-    <?= $form->field($model, 'description') ?>
+    <?= $form->field($model, 'addedBy') ?>
 
-    <?php // echo $form->field($model, 'addedBy') ?>
+    <?= $form->field($model, 'creationTime') ?>
 
-    <?php // echo $form->field($model, 'creationTime') ?>
-
-    <?php // echo $form->field($model, 'updatedBy') ?>
+    <?= $form->field($model, 'updatedBy') ?>
 
     <?php // echo $form->field($model, 'updateTime') ?>
 

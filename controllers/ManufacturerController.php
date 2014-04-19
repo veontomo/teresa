@@ -61,8 +61,6 @@ class ManufacturerController extends Controller
     public function actionCreate()
     {
         $model = new Manufacturer;
-        // $model->addedBy = Yii::$app->user->identity->id;
-        $model->creationTime = date('Y-m-d H:i:s'); 
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -114,7 +112,7 @@ class ManufacturerController extends Controller
      */
     protected function findModel($id)
     {
-        if ($id !== null && ($model = Manufacturer::find($id)) !== null) {
+        if (($model = Manufacturer::find($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

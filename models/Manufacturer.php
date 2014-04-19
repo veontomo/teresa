@@ -8,10 +8,7 @@ use Yii;
  * This is the model class for table "teresa_manufacturer".
  *
  * @property string $id
- * @property string $fullName
- * @property string $shortName
  * @property string $url
- * @property string $description
  * @property integer $addedBy
  * @property string $creationTime
  * @property integer $updatedBy
@@ -19,6 +16,7 @@ use Yii;
  *
  * @property TeresaAdmin $updatedBy0
  * @property TeresaAdmin $addedBy0
+ * @property TeresaManufacturerValues $teresaManufacturerValues
  */
 class Manufacturer extends \yii\db\ActiveRecord
 {
@@ -36,12 +34,9 @@ class Manufacturer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description'], 'string'],
             [['addedBy', 'updatedBy'], 'integer'],
             [['creationTime'], 'required'],
             [['creationTime', 'updateTime'], 'safe'],
-            [['fullName'], 'string', 'max' => 150],
-            [['shortName'], 'string', 'max' => 30],
             [['url'], 'string', 'max' => 255]
         ];
     }
@@ -53,10 +48,7 @@ class Manufacturer extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'fullName' => Yii::t('app', 'Full Name'),
-            'shortName' => Yii::t('app', 'Short Name'),
             'url' => Yii::t('app', 'Url'),
-            'description' => Yii::t('app', 'Description'),
             'addedBy' => Yii::t('app', 'Added By'),
             'creationTime' => Yii::t('app', 'Creation Time'),
             'updatedBy' => Yii::t('app', 'Updated By'),
@@ -78,5 +70,13 @@ class Manufacturer extends \yii\db\ActiveRecord
     public function getAddedBy0()
     {
         return $this->hasOne(TeresaAdmin::className(), ['id' => 'addedBy']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeresaManufacturerValues()
+    {
+        return $this->hasOne(TeresaManufacturerValues::className(), ['id' => 'id']);
     }
 }
