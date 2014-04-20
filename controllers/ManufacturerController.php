@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+// use ControllerPolyglot;
 use yii\web\AccessControl;
 use app\models\Manufacturer;
 use app\models\search\ManufacturerSearch;
@@ -14,7 +15,7 @@ use yii\web\VerbFilter;
 /**
  * ManufacturerController implements the CRUD actions for Manufacturer model.
  */
-class ManufacturerController extends Controller
+class ManufacturerController extends ControllerPolyglot
 {
     public function behaviors()
     {
@@ -33,12 +34,12 @@ class ManufacturerController extends Controller
                     ],
                 ],
             ],
-            // 'verbs' => [
-            //     'class' => VerbFilter::className(),
-            //     'actions' => [
-            //         'delete' => ['post'],
-            //     ],
-            // ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['post'],
+                ],
+            ],
         ];
     }
 

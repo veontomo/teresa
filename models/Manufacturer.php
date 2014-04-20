@@ -29,6 +29,22 @@ class Manufacturer extends \yii\db\ActiveRecord
     }
 
     /**
+    * Name of the table containing attributes that depened on language
+    * @return 'teresa_manufacturer_attrs'
+    */
+    public static function tableAttrs(){
+        return 'teresa_manufacturer_attrs';
+    }
+
+    /**
+    * Name of the table containing translations of the attributes
+    * @return 'teresa_manufacturer_values'
+    */
+    public static function tableValues(){
+        return 'teresa_manufacturer_values';
+    }
+
+    /**
      * @inheritdoc
      */
     public function rules()
