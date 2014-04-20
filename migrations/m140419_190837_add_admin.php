@@ -17,8 +17,8 @@ class m140419_190837_add_admin extends \yii\db\Migration
     		'loginName' => $this->userLoginName,
     		'creationTime' => $time,
     		'role' => $admin::ROLE_ROOT,
-            'hash' => $hash]
-    	);
+            'hash' => $hash
+        ]);
     	echo "User $this->userName is inserted into table $this->tableName\n";
     }
 
