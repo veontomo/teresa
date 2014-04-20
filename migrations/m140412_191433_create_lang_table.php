@@ -13,16 +13,19 @@ class m140412_191433_create_lang_table extends \yii\db\Migration
     {
     	$this->createTable($this->tableName, [
     		'id' => 'INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
-    		'name' => 'VARCHAR(5)',
+    		'name' => 'VARCHAR(5) UNIQUE',
     		'description' => 'VARCHAR(100)',
     		'charset' => 'VARCHAR(10)',
+            'status' => 'VARCHAR(10)', // default, disabled etc
     		// value to use in html with "lang" attribute
     		'lang' => 'VARCHAR(10)',   
     		'addedBy' => 'SMALLINT(5) unsigned',
     		'creationTime' => 'DATETIME NOT NULL',
     		'updatedBy' => 'SMALLINT(5) unsigned DEFAULT NULL',
-    		'updateTime' => 'DATETIME DEFAULT NULL',
-    	]);
+    		'updateTime' => 'DATETIME DEFAULT NULL'
+            ],
+            'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB'
+    	);
     	echo "Table $this->tableName is created.\n";
     	$this->addForeignKey($this->fkAddedBy, $this->tableName, 'addedBy', 
     		$this->adminTable, 'id', 'restrict', 'cascade');

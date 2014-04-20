@@ -26,8 +26,9 @@ class m140412_191545_create_manufacturer_table extends \yii\db\Migration
 			'addedBy' => 'SMALLINT(5) unsigned',
 			'creationTime' => 'DATETIME NOT NULL',
 			'updatedBy'  => 'SMALLINT(5) unsigned DEFAULT NULL',
-			'updateTime' => 'DATETIME DEFAULT NULL',
-		]);
+			'updateTime' => 'DATETIME DEFAULT NULL'],
+		'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB'
+		);
 		echo "Table $this->name is created.\n";
 		$this->addForeignKey($this->fkAddedBy, $this->name, 'addedBy', 
 			'teresa_admin', 'id', 'restrict', 'cascade');
@@ -39,8 +40,9 @@ class m140412_191545_create_manufacturer_table extends \yii\db\Migration
 
 		// table that stores the names of the attributes that depend on language
 		$this->createTable($this->attrs, [
-			'attribute' => 'VARCHAR(20) NOT NULL PRIMARY KEY'
-		]);
+			'attribute' => 'VARCHAR(20) NOT NULL PRIMARY KEY'],
+		'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB'
+		);
 		echo "Table $this->attrs is created.\n";
 		// populating the table with attributes which values depend on language 
 		$this->insert($this->attrs, ['attribute' => 'fullName']);
@@ -60,8 +62,9 @@ class m140412_191545_create_manufacturer_table extends \yii\db\Migration
 			'creationTime' => 'DATETIME NOT NULL',
 			'updatedBy' => 'SMALLINT(5) unsigned DEFAULT NULL',
 			'updateTime' => 'DATETIME DEFAULT NULL',
-			'PRIMARY KEY (`id`, `attribute`, `lang`)'
-			]);
+			'PRIMARY KEY (`id`, `attribute`, `lang`)'],
+			'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB'
+		);
 		echo "Table $this->values is created.\n";
 
 		$this->addForeignKey($this->fkValuesAddedBy, $this->values, 'addedBy', 

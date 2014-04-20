@@ -21,8 +21,8 @@ class m140412_191328_create_admin_table extends \yii\db\Migration
 			'creationTime' => 'DATETIME NOT NULL',
 			'updatedBy' => 'SMALLINT(5) UNSIGNED DEFAULT NULL',
 			'updateTime' => 'DATETIME DEFAULT NULL',
-			'lastLogin' => 'DATETIME DEFAULT NULL',
-		]);
+			'lastLogin' => 'DATETIME DEFAULT NULL'],
+			'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB');
 		echo "Table " . $this->tableName . " is created.\n";
 		$this->addForeignKey($this->fkAddedBy, $this->tableName, 'addedBy',
 			$this->tableName, 'id', 'restrict', 'cascade');
