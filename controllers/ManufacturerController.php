@@ -3,11 +3,13 @@
 namespace app\controllers;
 
 use Yii;
+use yii\web\AccessControl;
 use app\models\Manufacturer;
 use app\models\search\ManufacturerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\VerbFilter;
+
 
 /**
  * ManufacturerController implements the CRUD actions for Manufacturer model.
@@ -17,12 +19,26 @@ class ManufacturerController extends Controller
     public function behaviors()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update'],
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
+            // 'verbs' => [
+            //     'class' => VerbFilter::className(),
+            //     'actions' => [
+            //         'delete' => ['post'],
+            //     ],
+            // ],
         ];
     }
 
@@ -61,6 +77,8 @@ class ManufacturerController extends Controller
     public function actionCreate()
     {
         $model = new Manufacturer;
+        $model->creationTime = date('Y-m-d H:i:s');
+        $model->addedBy = Yii::$app->user->identity->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -80,6 +98,9 @@ class ManufacturerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->updateTime = date('Y-m-d H:i:s');
+        $model->updatedBy = Yii::$app->user->identity->id;
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

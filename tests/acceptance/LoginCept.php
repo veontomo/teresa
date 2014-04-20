@@ -27,3 +27,8 @@ if (method_exists($I, 'wait')) {
 }
 $I->expectTo('see user info');
 $I->see('Logout (admin)');
+
+$I->expectTo('see Home page as authorized user');
+$I->click('Home');
+$I->see('Logout (admin)');
+

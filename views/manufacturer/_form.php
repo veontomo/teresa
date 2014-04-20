@@ -14,13 +14,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'addedBy')->textInput() ?>
-
-    <?= $form->field($model, 'updatedBy')->textInput() ?>
-
-    <?= $form->field($model, 'creationTime')->textInput() ?>
-
-    <?= $form->field($model, 'updateTime')->textInput() ?>
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => 255]) ?>
 

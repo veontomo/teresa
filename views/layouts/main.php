@@ -47,11 +47,16 @@ AppAsset::register($this);
             ]);
             NavBar::end();
         ?>
+ 
+         <div class="container">
+            <?php 
+            echo  Yii::$app->user->isGuest ? 'You are a guest' : 'Your id = ' . Yii::$app->user->identity->id;
 
-        <div class="container">
+            ?>
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
+
             <?= $content ?>
         </div>
     </div>

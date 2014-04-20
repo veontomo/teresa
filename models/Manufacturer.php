@@ -35,8 +35,6 @@ class Manufacturer extends \yii\db\ActiveRecord
     {
         return [
             [['addedBy', 'updatedBy'], 'integer'],
-            [['creationTime'], 'required'],
-            [['creationTime', 'updateTime'], 'safe'],
             [['url'], 'string', 'max' => 255]
         ];
     }
@@ -61,7 +59,7 @@ class Manufacturer extends \yii\db\ActiveRecord
      */
     public function getUpdatedBy0()
     {
-        return $this->hasOne(TeresaAdmin::className(), ['id' => 'updatedBy']);
+        return $this->hasOne(Admin::className(), ['id' => 'updatedBy']);
     }
 
     /**
@@ -69,7 +67,7 @@ class Manufacturer extends \yii\db\ActiveRecord
      */
     public function getAddedBy0()
     {
-        return $this->hasOne(TeresaAdmin::className(), ['id' => 'addedBy']);
+        return $this->hasOne(Admin::className(), ['id' => 'addedBy']);
     }
 
     /**
