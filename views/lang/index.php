@@ -9,7 +9,7 @@ use yii\grid\GridView;
  * @var app\models\search\LangSearch $searchModel
  */
 
-$this->title = Yii::t('app', 'Langs');
+$this->title = Yii::t('app', 'Language');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lang-index">

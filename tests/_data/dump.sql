@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2014 alle 20:18
+-- Generation Time: Apr 20, 2014 alle 22:43
 -- Versione del server: 5.6.16
 -- PHP Version: 5.5.9
 
@@ -43,53 +43,47 @@ CREATE TABLE IF NOT EXISTS `teresa_admin` (
   UNIQUE KEY `loginName` (`loginName`),
   KEY `adminAddedBy` (`addedBy`),
   KEY `adminUpdatedBy` (`updatedBy`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dump dei dati per la tabella `teresa_admin`
 --
 
 INSERT INTO `teresa_admin` (`id`, `name`, `surname`, `avatar`, `loginName`, `hash`, `role`, `addedBy`, `creationTime`, `updatedBy`, `updateTime`, `lastLogin`) VALUES
-(11, 'Mario', NULL, NULL, 'admin', '$2y$10$BomzUNXWzeON8RFZq2BXcu5Vxk.ssrNojbdlauYhec5FuCPdRbrj2', 0, NULL, '2014-04-02 20:16:49', NULL, NULL, NULL);
+(1, 'Mario', NULL, NULL, 'admin', '$2y$10$f3k2VKSuOhm7oc623Dt3HOnG4lQdXhIHkYt93pJTD/XsANsYFB.li', 1, NULL, '2014-04-20 19:47:49', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `teresa_category`
+-- Struttura della tabella `teresa_lang`
 --
 
-CREATE TABLE IF NOT EXISTS `teresa_category` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `parent` smallint(5) unsigned DEFAULT NULL,
-  `description` text,
+CREATE TABLE IF NOT EXISTS `teresa_lang` (
+  `id` int(3) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(5) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `charset` varchar(10) DEFAULT NULL,
+  `status` varchar(10) DEFAULT NULL,
+  `lang` varchar(10) DEFAULT NULL,
   `addedBy` smallint(5) unsigned DEFAULT NULL,
   `creationTime` datetime NOT NULL,
   `updatedBy` smallint(5) unsigned DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `categoryAddedBy` (`addedBy`),
-  KEY `categoryUpdatedBy` (`updatedBy`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+  UNIQUE KEY `name` (`name`),
+  KEY `langAddedBy` (`addedBy`),
+  KEY `langUpdatedBy` (`updatedBy`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
--- Struttura della tabella `teresa_category_product`
+-- Dump dei dati per la tabella `teresa_lang`
 --
 
-CREATE TABLE IF NOT EXISTS `teresa_category_product` (
-  `category_id` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `product_id` int(11) unsigned NOT NULL DEFAULT '0',
-  `addedBy` smallint(5) unsigned DEFAULT NULL,
-  `creationTime` datetime NOT NULL,
-  `updatedBy` smallint(5) unsigned DEFAULT NULL,
-  `updateTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`category_id`,`product_id`),
-  KEY `productIdOfCategory` (`product_id`),
-  KEY `categoryProductAddedBy` (`addedBy`),
-  KEY `categoryProductUpdatedBy` (`updatedBy`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `teresa_lang` (`id`, `name`, `description`, `charset`, `status`, `lang`, `addedBy`, `creationTime`, `updatedBy`, `updateTime`) VALUES
+(1, 'ru', 'русский', 'utf-8', 'default', 'ru', NULL, '2014-04-20 19:47:49', NULL, NULL),
+(2, 'ua', 'українська', 'utf-8', NULL, 'ua', NULL, '2014-04-20 19:47:49', NULL, NULL),
+(3, 'it', 'italiano', 'utf-8', NULL, 'it', NULL, '2014-04-20 19:47:49', NULL, NULL),
+(4, 'en', 'english', 'utf-8', NULL, 'en', NULL, '2014-04-20 19:47:49', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -99,42 +93,57 @@ CREATE TABLE IF NOT EXISTS `teresa_category_product` (
 
 CREATE TABLE IF NOT EXISTS `teresa_manufacturer` (
   `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
-  `fullName` varchar(150) DEFAULT NULL,
-  `shortName` varchar(30) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
-  `description` text,
   `addedBy` smallint(5) unsigned DEFAULT NULL,
   `creationTime` datetime NOT NULL,
   `updatedBy` smallint(5) unsigned DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `manufacturerAddedBy` (`addedBy`),
-  KEY `manufacturerUpdatedBy` (`updatedBy`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `manufacturer_addedBy` (`addedBy`),
+  KEY `manufacturer_updatedBy` (`updatedBy`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `teresa_product`
+-- Struttura della tabella `teresa_manufacturer_attrs`
 --
 
-CREATE TABLE IF NOT EXISTS `teresa_product` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `manufacturer` int(6) unsigned DEFAULT NULL,
-  `description` text,
-  `mass` decimal(6,3) DEFAULT NULL,
-  `lenght` int(5) DEFAULT NULL,
-  `width` int(5) DEFAULT NULL,
-  `height` int(5) DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `teresa_manufacturer_attrs` (
+  `attribute` varchar(20) NOT NULL,
+  PRIMARY KEY (`attribute`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dump dei dati per la tabella `teresa_manufacturer_attrs`
+--
+
+INSERT INTO `teresa_manufacturer_attrs` (`attribute`) VALUES
+('description'),
+('fullName'),
+('shortName');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `teresa_manufacturer_values`
+--
+
+CREATE TABLE IF NOT EXISTS `teresa_manufacturer_values` (
+  `id` int(6) unsigned NOT NULL,
+  `attribute` varchar(20) NOT NULL DEFAULT '',
+  `lang` int(3) unsigned NOT NULL,
+  `value` text,
   `addedBy` smallint(5) unsigned DEFAULT NULL,
   `creationTime` datetime NOT NULL,
   `updatedBy` smallint(5) unsigned DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `productAddedBy` (`addedBy`),
-  KEY `productUpdatedBy` (`updatedBy`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`id`,`attribute`,`lang`),
+  KEY `manufacturer_values_addedBy` (`addedBy`),
+  KEY `manufacturer_values_updatedBy` (`updatedBy`),
+  KEY `manufacturer_values_lang` (`lang`),
+  KEY `manufacturer_values_attrs` (`attribute`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Limiti per le tabelle scaricate
@@ -144,38 +153,32 @@ CREATE TABLE IF NOT EXISTS `teresa_product` (
 -- Limiti per la tabella `teresa_admin`
 --
 ALTER TABLE `teresa_admin`
-  ADD CONSTRAINT `adminUpdatedBy` FOREIGN KEY (`updatedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `adminAddedBy` FOREIGN KEY (`addedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `adminAddedBy` FOREIGN KEY (`addedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `adminUpdatedBy` FOREIGN KEY (`updatedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `teresa_category`
+-- Limiti per la tabella `teresa_lang`
 --
-ALTER TABLE `teresa_category`
-  ADD CONSTRAINT `categoryUpdatedBy` FOREIGN KEY (`updatedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `categoryAddedBy` FOREIGN KEY (`addedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE;
-
---
--- Limiti per la tabella `teresa_category_product`
---
-ALTER TABLE `teresa_category_product`
-  ADD CONSTRAINT `categoryProductUpdatedBy` FOREIGN KEY (`updatedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `categoryIdOfProduct` FOREIGN KEY (`category_id`) REFERENCES `teresa_category` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `categoryProductAddedBy` FOREIGN KEY (`addedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `productIdOfCategory` FOREIGN KEY (`product_id`) REFERENCES `teresa_product` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `teresa_lang`
+  ADD CONSTRAINT `langAddedBy` FOREIGN KEY (`addedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `langUpdatedBy` FOREIGN KEY (`updatedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE;
 
 --
 -- Limiti per la tabella `teresa_manufacturer`
 --
 ALTER TABLE `teresa_manufacturer`
-  ADD CONSTRAINT `manufacturerUpdatedBy` FOREIGN KEY (`updatedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `manufacturerAddedBy` FOREIGN KEY (`addedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `manufacturer_addedBy` FOREIGN KEY (`addedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `manufacturer_updatedBy` FOREIGN KEY (`updatedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE;
 
 --
--- Limiti per la tabella `teresa_product`
+-- Limiti per la tabella `teresa_manufacturer_values`
 --
-ALTER TABLE `teresa_product`
-  ADD CONSTRAINT `productUpdatedBy` FOREIGN KEY (`updatedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `productAddedBy` FOREIGN KEY (`addedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE;
+ALTER TABLE `teresa_manufacturer_values`
+  ADD CONSTRAINT `manufacturer_values_addedBy` FOREIGN KEY (`addedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `manufacturer_values_attrs` FOREIGN KEY (`attribute`) REFERENCES `teresa_manufacturer_attrs` (`attribute`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `manufacturer_values_lang` FOREIGN KEY (`lang`) REFERENCES `teresa_lang` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `manufacturer_values_to_core` FOREIGN KEY (`id`) REFERENCES `teresa_manufacturer` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `manufacturer_values_updatedBy` FOREIGN KEY (`updatedBy`) REFERENCES `teresa_admin` (`id`) ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

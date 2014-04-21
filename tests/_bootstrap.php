@@ -5,7 +5,7 @@
 defined('TEST_ENTRY_URL') or define('TEST_ENTRY_URL', '/web/index-test.php');
 
 // the entry script file path for functional and acceptance tests
-defined('TEST_ENTRY_FILE') or define('TEST_ENTRY_FILE',  dirname(__DIR__) . '/web/index-test.php');
+defined('TEST_ENTRY_FILE') or define('TEST_ENTRY_FILE',  '/web/index-test.php');
 
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 
@@ -21,3 +21,5 @@ $_SERVER['SCRIPT_NAME'] = TEST_ENTRY_URL;
 $_SERVER['SERVER_NAME'] = 'localhost/web/teresa';
 
 Yii::setAlias('@tests', __DIR__);
+
+\Codeception\Util\Autoload::registerSuffix('Page', __DIR__.DIRECTORY_SEPARATOR.'_pages');
