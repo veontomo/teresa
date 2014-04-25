@@ -11,7 +11,6 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="manufacturer-form">
-
     <?php $form = ActiveForm::begin(); ?>
 
 

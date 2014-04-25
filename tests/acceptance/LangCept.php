@@ -22,7 +22,7 @@ use tests\_pages\LoginPage;
 
 	$I->amGoingTo('see the page as authenticated user');
 	$I->amOnPage('/web/index-test.php?r=lang');
-	$I->dontSee('Language', 'h1');
+	$I->see('Language', 'h1');
 	$I->see('english');
 	$I->see('italiano');
 	$I->see('українська');

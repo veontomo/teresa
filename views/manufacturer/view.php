@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Manufacturers'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="manufacturer-view">
-
+    
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>

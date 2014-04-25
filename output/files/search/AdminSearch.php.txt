@@ -1,0 +1,83 @@
+<?php
+
+namespace app\models\search;
+
+use Yii;
+use yii\base\Model;
+use yii\data\ActiveDataProvider;
+use app\models\Admin;
+
+/**
+ * AdminSearch represents the model behind the search form about `app\models\Admin`.
+ */
+class AdminSearch extends Model
+{
+    public $id;
+    public $name;
+    public $surname;
+    public $avatar;
+    public $loginName;
+    public $hash;
+    public $role;
+    public $addedBy;
+    public $creationTime;
+    public $updatedBy;
+    public $updateTime;
+    public $lastLogin;
+
+    public function rules()
+    {
+        return [
+            [['id', 'role', 'addedBy', 'updatedBy'], 'integer'],
+            [['name', 'surname', 'avatar', 'loginName', 'hash', 'creationTime', 'updateTime', 'lastLogin'], 'safe'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'surname' => Yii::t('app', 'Surname'),
+            'avatar' => Yii::t('app', 'Avatar'),
+            'loginName' => Yii::t('app', 'Login Name'),
+            'hash' => Yii::t('app', 'Hash'),
+            'role' => Yii::t('app', 'Role'),
+            'addedBy' => Yii::t('app', 'Added By'),
+            'creationTime' => Yii::t('app', 'Creation Time'),
+            'updatedBy' => Yii::t('app', 'Updated By'),
+            'updateTime' => Yii::t('app', 'Update Time'),
+            'lastLogin' => Yii::t('app', 'Last Login'),
+        ];
+    }
+
+    public function search($params)
+    {
+        $query = Admin::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere(['id' => $this->id]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'surname', $this->surname]);
+        $query->andFilterWhere(['like', 'avatar', $this->avatar]);
+        $query->andFilterWhere(['like', 'loginName', $this->loginName]);
+        $query->andFilterWhere(['like', 'hash', $this->hash]);
+        $query->andFilterWhere(['role' => $this->role]);
+        $query->andFilterWhere(['addedBy' => $this->addedBy]);
+        $query->andFilterWhere(['creationTime' => $this->creationTime]);
+        $query->andFilterWhere(['updatedBy' => $this->updatedBy]);
+        $query->andFilterWhere(['updateTime' => $this->updateTime]);
+        $query->andFilterWhere(['lastLogin' => $this->lastLogin]);
+        return $dataProvider;
+    }
+}
+

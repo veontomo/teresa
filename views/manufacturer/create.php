@@ -14,11 +14,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Manufacturers'), 'ur
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="manufacturer-create">
-
+	<?php
+		echo $model->getLang();
+	?>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-
 </div>

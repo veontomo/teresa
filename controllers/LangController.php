@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\web\AccessControl;
 use app\models\Lang;
 use app\models\search\LangSearch;
 use yii\web\Controller;
@@ -17,6 +18,20 @@ class LangController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => false,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view', 'create', 'update'],
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

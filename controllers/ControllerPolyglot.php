@@ -14,5 +14,13 @@ use yii\web\VerbFilter;
  */
 class ControllerPolyglot extends Controller
 {
-    private $lang = 'it'; 
+    private $lang = 'it';
+
+    public function setLang($lang){
+        $this->lang = $lang;
+    }
+
+    public function getLang(){
+        return $this->lang;
+    }
 }

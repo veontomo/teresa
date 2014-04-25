@@ -66,7 +66,7 @@ class ManufacturerController extends ControllerPolyglot
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id)
         ]);
     }
 
@@ -85,7 +85,7 @@ class ManufacturerController extends ControllerPolyglot
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                'model' => $model
             ]);
         }
     }
@@ -140,4 +140,6 @@ class ManufacturerController extends ControllerPolyglot
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
 }

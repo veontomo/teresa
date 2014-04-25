@@ -90,4 +90,8 @@ class Lang extends \yii\db\ActiveRecord
     {
         return $this->hasOne(TeresaManufacturerValues::className(), ['lang' => 'id']);
     }
+
+    public static function getDefault(){
+        return self::find()->where(['status' => 'default'])->one();
+    }
 }
