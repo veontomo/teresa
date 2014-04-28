@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Manufacturer;
 
 /**
  * This is the model class for table "teresa_manufacturer".
@@ -39,17 +40,17 @@ class Manufacturer extends \yii\db\ActiveRecord
     * Lang db.
     * If the '_lang' key was not set in the SESSION, set it up.
     */
-    public function __construct(){
-        $langIsSet = isset(Yii::$app->session['_lang']);
-        $defaultLangName =  $langIsSet ? Yii::$app->session['_lang'] : Yii::$app->params['defaultLang'];
-        if ($defaultLangName){
-            $lang = Lang::find()->where(['name' => $defaultLangName])->one();
-        };
-        $this->_lang =  (isset($lang) && $lang) ? $lang : Lang::getDefault();
-        if (!$langIsSet){
-            Yii::$app->session['_lang'] = $this->_lang->name;
-        }
-    }
+    // public function __construct(){
+    //     $langIsSet = isset(Yii::$app->session['_lang']);
+    //     $defaultLangName =  $langIsSet ? Yii::$app->session['_lang'] : Yii::$app->params['defaultLang'];
+    //     if ($defaultLangName){
+    //         $lang = Lang::find()->where(['name' => $defaultLangName])->one();
+    //     };
+    //     $this->_lang =  (isset($lang) && $lang) ? $lang : Lang::getDefault();
+    //     if (!$langIsSet){
+    //         Yii::$app->session['_lang'] = $this->_lang->name;
+    //     }
+    // }
 
     /**
      * @inheritdoc
@@ -84,7 +85,7 @@ class Manufacturer extends \yii\db\ActiveRecord
     */ 
     public function getLang()
     {
-        return $this->_lang->name;
+        return $this->_lang;
     }
 
     /**
@@ -92,7 +93,7 @@ class Manufacturer extends \yii\db\ActiveRecord
     * @param string   $lang   
     * @return string
     */ 
-    public function setLang($lang)
+    public function setLang(Lang $lang)
     {
         $this->_lang = $lang;
     }

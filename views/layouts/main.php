@@ -4,6 +4,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use app\models\Lang;
 
 /**
  * @var \yii\web\View $this
@@ -51,7 +52,7 @@ AppAsset::register($this);
          <div class="container">
             <?php 
             echo  Yii::$app->user->isGuest ? 'You are a guest' : 'Your id = ' . Yii::$app->user->identity->id;
-
+            // echo Lang::getDefault()->name;
             ?>
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

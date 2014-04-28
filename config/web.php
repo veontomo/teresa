@@ -33,6 +33,10 @@ $config = [
             ],
         ],
         'db' => $db,
+        'polyglot' => [
+            'class' => 'app\components\Polyglot'
+        ],
+
     ],
     'params' => $params,
 ];

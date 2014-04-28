@@ -6,6 +6,7 @@ use Yii;
 // use ControllerPolyglot;
 use yii\web\AccessControl;
 use app\models\Manufacturer;
+use app\models\Lang;
 use app\models\search\ManufacturerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -15,8 +16,9 @@ use yii\web\VerbFilter;
 /**
  * ManufacturerController implements the CRUD actions for Manufacturer model.
  */
-class ManufacturerController extends ControllerPolyglot
+class ManufacturerController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -78,6 +80,7 @@ class ManufacturerController extends ControllerPolyglot
     public function actionCreate()
     {
         $model = new Manufacturer;
+        // $model->setLang($this->getLang());
         $model->creationTime = date('Y-m-d H:i:s');
         $model->addedBy = Yii::$app->user->identity->id;
 
