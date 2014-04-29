@@ -16,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="manufacturer-create">
 	<?php
-		// echo $model->getLang()->name;
-	 	echo 'lang component: ' . Yii::$app->polyglot->l;
-	 	$s = new Session();
-	 	$s->open();
-	 	print_r($s);
+	 	echo 'lang from Polyglot component: ' . Yii::$app->polyglot->getLang()->name . '<br />';
+	 	echo 'lang from model: ' . $model->getLang()->name . '<br />';
+	 	// echo 'getTeresaManufacturerValues from model: ' . $model->getTeresaManufacturerValues() . '<br />';
+	 	echo 'from model id: ' . $model->id . '<br />'
+
 	?>
     <h1><?= Html::encode($this->title) ?></h1>
 

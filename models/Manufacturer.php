@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use app\models\Manufacturer;
+use yii\elasticsearch\Query;
 
 /**
  * This is the model class for table "teresa_manufacturer".
@@ -27,30 +28,19 @@ class Manufacturer extends \yii\db\ActiveRecord
     * current language
     * @type   Lang
     */
-    private $_lang; // initialize this variable in the constructor
+    private $_lang;
+
+    public $test = 'test string';
 
     /**
-    * Initialize _lang property. 
+    * Initialize _lang property.  
     *
-    * Look for language name in the following order:
-    * 1. in SESSION:  it should contain "_lang" key,
-    * 2. in application parameters: configuration array should contain 'defaultLang' key.
-    * If the language name is found and it corresponds to a record  present in Lang db, 
-    * then use this record as current language. Otherwise, picks up default language from
-    * Lang db.
-    * If the '_lang' key was not set in the SESSION, set it up.
+    * It make use of "Polyglot" component in order to initialize 
+    * private variable $_lang.
     */
-    // public function __construct(){
-    //     $langIsSet = isset(Yii::$app->session['_lang']);
-    //     $defaultLangName =  $langIsSet ? Yii::$app->session['_lang'] : Yii::$app->params['defaultLang'];
-    //     if ($defaultLangName){
-    //         $lang = Lang::find()->where(['name' => $defaultLangName])->one();
-    //     };
-    //     $this->_lang =  (isset($lang) && $lang) ? $lang : Lang::getDefault();
-    //     if (!$langIsSet){
-    //         Yii::$app->session['_lang'] = $this->_lang->name;
-    //     }
-    // }
+    public function __construct(){
+        $this->_lang = Yii::$app->polyglot->getLang();
+    }
 
     /**
      * @inheritdoc
@@ -146,5 +136,22 @@ class Manufacturer extends \yii\db\ActiveRecord
     public function getTeresaManufacturerValues()
     {
         return $this->hasOne(TeresaManufacturerValues::className(), ['id' => 'id']);
+    }
+
+    /**
+    * Returns records from 'teresa_manufacturer_values' table corresponding 
+    * to current record in current language
+    *
+    */
+    public function getValues()
+    {   
+        $id = $this->id;
+        $langId = $this->getLang()->id;
+        if ($id && $langId){
+            $connection = \Yii::$app->db;
+            $query = $connection->createCommand('SELECT * FROM ' . $this->tableValues() .
+                ' WHERE lang=' . $langId . ' AND id=' . $id);
+            return $query->queryAll();
+        }
     }
 }
